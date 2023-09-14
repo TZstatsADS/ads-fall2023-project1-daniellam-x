@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-HappyDB is a corpus of 100,000 crowd-sourced happy moments via Amazon's Mechanical Turk. You can read more about it on https://arxiv.org/abs/1801.07746
+HappyDB is a corpus of 100,000 crowd-sourced happy moments via Amazon's Mechanical Turk. You can read more about it on <https://arxiv.org/abs/1801.07746>
 
 In this R notebook, we process the raw textual data for our data analysis.
 
@@ -18,10 +18,10 @@ In this R notebook, we process the raw textual data for our data analysis.
 
 From the packages' descriptions:
 
-+ `tm` is a framework for text mining applications within R;
-+ `tidyverse` is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures;
-+ `tidytext` allows text mining using 'dplyr', 'ggplot2', and other tidy tools;
-+ `DT` provides an R interface to the JavaScript library DataTables.
+-   `tm` is a framework for text mining applications within R;
+-   `tidyverse` is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures;
+-   `tidytext` allows text mining using 'dplyr', 'ggplot2', and other tidy tools;
+-   `DT` provides an R interface to the JavaScript library DataTables.
 
 ```{r load libraries, warning=FALSE, message=FALSE}
 library(tm)
