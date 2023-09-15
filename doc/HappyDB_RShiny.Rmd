@@ -71,6 +71,12 @@ hm_data <- hm_data %>%
                                         months_3 = "3m", hours_24 = "24h"))
 ```
 
+### Exporting the combined data into a CSV file
+
+```{r export data}
+write_csv(hm_data, "../output/joined_data.csv")
+```
+
 ```{r}
 datatable(hm_data)
 ```

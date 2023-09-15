@@ -1,0 +1,51 @@
+---
+title: "Post Cleaning Analysis"
+author: "Daniel Lam"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r load libraries, warning=FALSE, message=FALSE}
+
+library(tidyverse)
+library(tidytext)
+library(DT)
+library(scales)
+library(wordcloud2)
+library(gridExtra)
+library(ngram)
+library(shiny) 
+```
+
+
+```{r}
+joined_data <- read_csv("../output/joined_data.csv")
+```
+```{r}
+datatable(joined_data)
+```
+
+```{r}
+sample_df = joined_data[sample(nrow(joined_data), 500), ]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
