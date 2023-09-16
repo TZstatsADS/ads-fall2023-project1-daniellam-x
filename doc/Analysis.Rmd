@@ -16,6 +16,8 @@ library(wordcloud2)
 library(gridExtra)
 library(ngram)
 library(shiny) 
+library(sentimentr)
+library(ggplot2)
 ```
 
 
@@ -26,6 +28,7 @@ joined_data <- read_csv("../output/joined_data.csv")
 datatable(joined_data)
 ```
 
+make a sample of the datatable to experiment
 ```{r}
 sample_df = joined_data[sample(nrow(joined_data), 500), ]
 ```
@@ -33,10 +36,52 @@ sample_df = joined_data[sample(nrow(joined_data), 500), ]
 
 
 
+Start with all data
+```{r}
+sentiment_scores = sentiment_by(joined_data$original_hm, by = NULL)
+joined_data$sent_score = sentiment_scores$ave_sentiment
+```
+```{r}
+datatable(joined_data)
+```
 
 
+Looking at all data
+```{r}
+#df <- data.frame(text = joined_data$original_hm, marital = joined_data$marital, parenthood = joined_data$parenthood, sent_score = joined_data$sent_score)
+ggplot(joined_data, aes(x = sent_score)) +
+  geom_density(fill = "blue", color = "black") +
+  labs(title = "Sentiment Scores: All Data", x = "Score", y = "Density")
 
+```
 
+Splitting data on marital status
+```{r}
+ggplot(joined_data, aes(x = sent_score, fill = marital)) +
+  geom_density(alpha = 0.5) +  # Use alpha to make overlapping areas transparent
+  labs(title = "Sentiment Scores: Marital", x = "Score", y = "Density")
+```
+
+Data split on parenthood
+```{r}
+ggplot(joined_data, aes(x = sent_score, fill = parenthood)) +
+  geom_density(alpha = 0.5) +  # Use alpha to make overlapping areas transparent
+  labs(title = "Sentiment Scores: Parenthood", x = "Score", y = "Density")
+```
+
+Data split on gender
+```{r}
+ggplot(joined_data, aes(x = sent_score, fill = gender)) +
+  geom_density(alpha = 0.5) +  # Use alpha to make overlapping areas transparent
+  labs(title = "Sentiment Scores: Gender", x = "Score", y = "Density")
+```
+
+Data split on reflection period
+```{r}
+ggplot(joined_data, aes(x = sent_score, fill = reflection_period)) +
+  geom_density(alpha = 0.5) +  # Use alpha to make overlapping areas transparent
+  labs(title = "Sentiment Scores: Reflection Period", x = "Score", y = "Density")
+```
 
 
 
