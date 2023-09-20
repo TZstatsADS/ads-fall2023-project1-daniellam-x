@@ -8,6 +8,7 @@ output: html_document
 ## Introduction
 
 For this project I will utilize sentiment analysis to gain insights into the HappyDB database that helps answer the question about which groups of people are happier. To do this, I will use the sentimentr package to assign a sentiment score to each entry in the HappyDB database with a more positive score correlating with a more positive sentiment, a more negative score correlating with a more negative sentiment and a score of 0 correlating with a neutral sentiment. I will then split the data on the binary categories of marital, parenthood, and gender.
+
 ```{r load libraries, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(sentimentr)
@@ -16,18 +17,20 @@ library(shiny)
 ```
 
 ## Import data
+
 ```{r}
 joined_data <- read_csv("../output/joined_data.csv")
 ```
 
-
 ## Conduct sentiment analysis using the sentimentr package
+
 ```{r}
 sentiment_scores = sentiment_by(joined_data$original_hm, by = NULL)
 joined_data$sent_score = sentiment_scores$ave_sentiment
 ```
 
 ## Examine data as a whole
+
 ```{r}
 cat("Average Sentiment Score: ", mean(joined_data$sent_score), "\nMedian Sentiment Score: ", median(joined_data$sent_score))
 
@@ -40,6 +43,7 @@ ggplot(joined_data, aes(x = sent_score)) +    #fill = "blue", color = "black"
 The average and median sentiment scores indicate a positive sentiment throughout the database. I opted to use density plots instead of histograms throughout this project as it will make the slight differences between the different group sentiment scores more noticeable. The density of the sentiment scores is bi-modal with the first maximum representing the large number of neutral entries which is explained by most of the entries describing an event/occurrence without using emotion-based words. The next maximum is in line with the average and median sentiment scores that were calculated.
 
 ## Split the data on marital status
+
 ```{r}
 df_married = subset(joined_data, marital == 'married')
 df_single = subset(joined_data, marital == 'single')
@@ -48,9 +52,11 @@ cat("Married entries: ", dim(df_married)[1], "\nSingle entries: ", dim(df_single
 cat("Average Married Sentiment Score: ", mean(df_married$sent_score), "\nMedian Married Sentiment Score: ", median(df_married$sent_score))
 cat("Average Single Sentiment Score: ", mean(df_single$sent_score), "\nMedian Single Sentiment Score: ", median(df_single$sent_score))
 ```
-There are more single entries in than married in the database. The data indicates that married people have slightly more positive entries in the database than single people. 
+
+There are more single entries than married in the database. The data indicates that married people have slightly more positive entries in the database than single people.
 
 ## Split the data on parenthood status
+
 ```{r}
 df_parent = subset(joined_data, parenthood == 'y')
 df_notparent = subset(joined_data, parenthood == 'n')
@@ -60,18 +66,23 @@ cat("Average Parent Sentiment Score: ", mean(df_parent$sent_score), "\nMedian Pa
 cat("Average Non-parent Sentiment Score: ", mean(df_notparent$sent_score), "\nMedian Non-parent Sentiment Score: ", median(df_notparent$sent_score))
 ```
 
-
+There are more non-parent entries although the data indicates that the entries from parents had a higher positive sentiment score.
 
 ## Split the data on gender
+
 ```{r}
 df_m = subset(joined_data, gender == 'm')
 df_f = subset(joined_data, gender == 'f')
 
+cat("Male entries: ", dim(df_m)[1], "\nFemale entries: ", dim(df_f)[1])
 cat("Average Male Sentiment Score: ", mean(df_m$sent_score), "\nMedian Male Sentiment Score: ", median(df_m$sent_score))
 cat("Average Female Sentiment Score: ", mean(df_f$sent_score), "\nMedian Female Sentiment Score: ", median(df_f$sent_score))
 ```
 
+There are more male entries. The data indicates that on average females expresses a more positive sentiment.
+
 ## Visualization of split on binary categories
+
 ```{r}
 # Define the UI
 shinyApp(
@@ -108,13 +119,22 @@ server <- function(input, output) {
 
 ```
 
+There are more single than married entries in the database which makes the sliver of the married density plot that peaks out significant. This correlates with the higher average and median sentiment score that was calculated earlier.
+
+There are also more non-parent entries in the database making the parent density plot significant as well and in line with the findings of a higher average and median sentiment score for parents than non-parents.
+
+The density plot for female entries also reinforces the findings in higher average and median sentiment scores for females.
 
 ## Exploring sentiment score with age
+
 ```{r}
 age_df = subset(joined_data, age <=100)
 ```
 
+We will examine how age correlates with sentiment scores. There were some entries with age more than 100 so I filtered those out to get a reasonable range of ages.
+
 ## Visualization of sentiment score and age
+
 ```{r}
 # Define the UI
 shinyApp(
@@ -150,14 +170,8 @@ server <- function(input, output) {
 )
 ```
 
+The scatter plot looks like a population pyramid turned on its side. It seems that the variance of sentiment scores decreases with age based on the shape of the scatterplot. We also can see how sub population groups like those that are married or parents correlate with older ages which is to be expected.
 
+## Discussion
 
-
-
-
-
-
-
-
-
-
+The study into the HappyDB database with the use of sentiment analysis has yielded some interesting results. The data indicates that the sub groups of parents, married people, and females have a higher average and median sentiment score. This could suggest that having people like a spouse or children in your life intensifies your happiness but it could also suggest that people in those categories simply express themselves with more emotion based words as that is what the sentiment score measures. We also see that those with a spouse or children tend to be older in age which leads to the idea that older people express stronger emotions in their words than younger people

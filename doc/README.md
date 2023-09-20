@@ -2,4 +2,4 @@
 
 ### Doc folder
 
-The doc directory contains the report or presentation files. It can have subfolders.
+This folder contains a script for text processing called $\textbf{Text_Processing.Rmd}$, a project description called $\textbf{Proj_1desc.md}$, a notebook for producing wordclouds called $\textbf{HappyDB_RShiny.Rmd}$, and a blog post with some analysis, visualizations and discussion called $\textbf{Analysis.Rmd}$ and $\textbf{Analysis.html}$.
