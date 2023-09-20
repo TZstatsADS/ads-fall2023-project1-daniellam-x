@@ -37,7 +37,7 @@ ggplot(joined_data, aes(x = sent_score)) +    #fill = "blue", color = "black"
   theme_minimal()
 ```
 
-The average and median sentiment scores indicate a positive sentiment throughout the database. I opted to use density plots instead of histograms throughout this project as it will make the slight differences between the population scores more noticeable. The density of the sentiment scores is bi-modal with the first maximum representing the large number of neutral entries which is explained by most of the entries describing an event/occurrence without using emotion-based words. The next maximum is inline with the average and median sentiment scores that were calculated.
+The average and median sentiment scores indicate a positive sentiment throughout the database. I opted to use density plots instead of histograms throughout this project as it will make the slight differences between the different group sentiment scores more noticeable. The density of the sentiment scores is bi-modal with the first maximum representing the large number of neutral entries which is explained by most of the entries describing an event/occurrence without using emotion-based words. The next maximum is in line with the average and median sentiment scores that were calculated.
 
 ## Split the data on marital status
 ```{r}
@@ -48,7 +48,7 @@ cat("Married entries: ", dim(df_married)[1], "\nSingle entries: ", dim(df_single
 cat("Average Married Sentiment Score: ", mean(df_married$sent_score), "\nMedian Married Sentiment Score: ", median(df_married$sent_score))
 cat("Average Single Sentiment Score: ", mean(df_single$sent_score), "\nMedian Single Sentiment Score: ", median(df_single$sent_score))
 ```
-There are more single entries in than married in the database. The data indicates that married people have slightly more positive entries in the database than single people. This is also evident in the overlapping density plots by the peak and slight curve of the married plot outside of the single plot on the second maximum. This is not trivial as there are less entries from married people in the database so the difference can not be explained by more married entries. 
+There are more single entries in than married in the database. The data indicates that married people have slightly more positive entries in the database than single people. 
 
 ## Split the data on parenthood status
 ```{r}
@@ -59,6 +59,8 @@ cat("Parent entries: ", dim(df_parent)[1], "\nNon-parent entries: ", dim(df_notp
 cat("Average Parent Sentiment Score: ", mean(df_parent$sent_score), "\nMedian Parent Sentiment Score: ", median(df_parent$sent_score))
 cat("Average Non-parent Sentiment Score: ", mean(df_notparent$sent_score), "\nMedian Non-parent Sentiment Score: ", median(df_notparent$sent_score))
 ```
+
+
 
 ## Split the data on gender
 ```{r}
